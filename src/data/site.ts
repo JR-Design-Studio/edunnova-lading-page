@@ -30,6 +30,6 @@ export const nav = [
   { href: '/servicios/', label: 'Servicios' },
   { href: '/ami-docente/', label: 'Certificación CONOCER' },
   { href: '/resp-social/', label: 'Resp. social' },
-  { href: '/red-edunnova/', label: 'Noticias' },
+  { href: '/red-edunnova/', label: 'Enlace' },
   { href: '/contacto/', label: 'Contacto' },
 ];

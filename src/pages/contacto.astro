@@ -38,14 +38,14 @@ const field =
               <span class="text-white/70">La forma más rápida de contactarnos</span>
             </span>
           </a>
-          <div class="grid gap-3 sm:grid-cols-2">
+          <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
             <a href={tel} class="rounded-[20px] bg-white/80 p-5 hover:bg-white">
               <span class="block text-sm font-bold text-forest">Teléfono</span>
               <span class="mt-1 block font-extrabold">{site.phone}</span>
             </a>
             <a href={`mailto:${site.email}`} class="rounded-[20px] bg-white/80 p-5 hover:bg-white">
               <span class="block text-sm font-bold text-forest">Correo</span>
-              <span class="mt-1 block font-extrabold break-all">{site.email}</span>
+              <span class="mt-1 block font-extrabold [overflow-wrap:anywhere]">{site.email}</span>
             </a>
           </div>
           <a href={site.mapLink} target="_blank" rel="noopener" class="block rounded-[20px] bg-white/80 p-5 hover:bg-white">

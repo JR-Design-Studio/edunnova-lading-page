@@ -34,14 +34,14 @@ const articleLd = {
   image={post.cover?.src}
   type="article"
   crumbs={[
-    { name: 'Noticias', path: '/red-edunnova/' },
+    { name: 'Enlace', path: '/red-edunnova/' },
     { name: post.title, path: url },
   ]}
   jsonLd={[articleLd]}
 >
   <article class="px-5 pt-12 pb-8 md:px-10 md:pt-16">
     <header class="mx-auto max-w-[760px]">
-      <a href="/red-edunnova/" class="font-bold text-forest underline-offset-4 hover:underline">← Noticias</a>
+      <a href="/red-edunnova/" class="font-bold text-forest underline-offset-4 hover:underline">← Enlace</a>
       <p class="mt-8 text-sm font-bold text-muted">
         <time datetime={post.date}>{formatDate(post.date)}</time><span class="mx-2 inline-block size-1 rounded-full bg-current align-middle opacity-60" aria-hidden="true"></span>{readingMinutes(post)} min de lectura
       </p>
@@ -64,7 +64,7 @@ const articleLd = {
     more.length > 0 && (
       <section class="px-5 pt-16 md:px-10">
         <div class="mx-auto max-w-[1320px]">
-          <h2 class="text-title">Más noticias</h2>
+          <h2 class="text-title">Más en Enlace</h2>
           <div class="mt-10 grid gap-5 md:grid-cols-3">
             {more.map((p) => (
               <PostCard post={p} />
