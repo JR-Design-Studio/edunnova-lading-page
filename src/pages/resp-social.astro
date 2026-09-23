@@ -1,0 +1,97 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Mark from '../components/Mark.astro';
+import CtaBand from '../components/CtaBand.astro';
+import PostCard from '../components/PostCard.astro';
+import { site } from '../data/site';
+import { posts } from '../data/posts';
+import abrazo from '../assets/illustrations/abrazo-mundo.webp';
+import manos from '../assets/illustrations/manos-choque.webp';
+
+const programs = [
+  {
+    title: 'Huella responsable, futuro sostenible',
+    text: 'Asumimos la responsabilidad de nuestra huella ecológica con una política empresarial sustentable que reduce al máximo el impacto ambiental de nuestras operaciones, optimizando recursos y fomentando prácticas responsables.',
+  },
+  {
+    title: 'Caminos verdes, cielos azules',
+    text: 'Un programa permanente de reforestación en alianza con organismos gubernamentales, educativos, privados y sociales, para recuperar espacios naturales, contribuir a la biodiversidad y fomentar una cultura ambiental responsable.',
+  },
+  {
+    title: 'Tecno-Inclusión',
+    text: 'Educación en alfabetización mediática e informacional para grupos vulnerables, como comunidades indígenas y adultos mayores, entre otros.',
+  },
+];
+
+// Nota relacionada: el taller "Conecta con la IA" fue una acción de responsabilidad social
+const related = posts.filter((p) => p.slug.includes('conecta-con-la-ia'));
+---
+
+<Base
+  title="Responsabilidad social | Edunnova"
+  description="En Edunnova la educación y la responsabilidad social van de la mano: política sustentable, reforestación permanente y alfabetización mediática para grupos vulnerables."
+  crumbs={[{ name: 'Responsabilidad social', path: '/resp-social/' }]}
+>
+  <PageHeader
+    lead="Creemos que la educación y la responsabilidad social van de la mano. Nuestras acciones deben contribuir a un mundo más justo, equitativo y sustentable, y lo materializamos con acciones concretas."
+    illustration={abrazo}
+    illustrationAlt="Ilustración de una persona abrazando el mundo"
+  >
+    Responsabilidad <Mark>social</Mark>
+  </PageHeader>
+
+  <section class="px-5 py-20 md:px-10 md:py-28">
+    <div class="mx-auto grid max-w-[1320px] gap-5 md:grid-cols-3">
+      {
+        programs.map((p, i) => (
+          <article class="flex flex-col rounded-[28px] bg-white p-8" data-reveal style={`--d:${i * 90}ms`}>
+            <span class="grid size-12 place-items-center rounded-full bg-leaf text-xl font-extrabold">{i + 1}</span>
+            <h2 class="mt-6 text-2xl leading-tight font-extrabold">{p.title}</h2>
+            <p class="mt-3 text-muted">{p.text}</p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="px-5 md:px-10">
+    <div class="mx-auto grid max-w-[1320px] items-center gap-12 rounded-[32px] bg-forest-deep p-8 text-white md:p-14 lg:grid-cols-2 lg:gap-20">
+      <div data-reveal>
+        <h2 class="text-title">Vinculación con <span class="text-leaf">educación pública</span></h2>
+        <p class="mt-6 text-lead text-white/80">
+          Promovemos el acceso equitativo a herramientas tecnológicas y educativas como base para el desarrollo de las
+          personas. Nos vinculamos con instituciones de educación pública para crear estrategias inclusivas que se adapten
+          a entornos vulnerables, con un aprendizaje significativo, innovador y accesible.
+        </p>
+        <p class="mt-8 text-white/70">
+          ¿Quieres sumarte a un programa? Escríbenos a
+          <a href={`mailto:${site.emailSocial}`} class="font-bold text-leaf underline-offset-4 hover:underline">{site.emailSocial}</a>
+        </p>
+      </div>
+      <div class="rounded-[24px] bg-white p-6" data-reveal style="--d:120ms">
+        <Image src={manos} alt="Ilustración de manos chocando" widths={[400, 700]} sizes="(min-width: 1024px) 40vw, 90vw" class="w-full" />
+      </div>
+    </div>
+  </section>
+
+  {
+    related.length > 0 && (
+      <section class="px-5 pt-20 md:px-10 md:pt-28">
+        <div class="mx-auto max-w-[1320px]">
+          <h2 class="text-title" data-reveal>En acción</h2>
+          <div class="mt-10 grid gap-5 md:grid-cols-3">
+            {related.map((p) => (
+              <div data-reveal>
+                <PostCard post={p} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <CtaBand title="¿Tu institución quiere" mark="colaborar" end=" con nosotros?" text="Buscamos aliados en educación pública, gobierno y sociedad civil para llevar estos programas a más personas." />
+</Base>

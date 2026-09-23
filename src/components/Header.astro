@@ -1,0 +1,134 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/brand/logo-horizontal-dark.webp';
+import logoLight from '../assets/brand/logo-horizontal-light.webp';
+import { nav, site } from '../data/site';
+
+const path = Astro.url.pathname;
+const current = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
+---
+
+<header
+  id="header"
+  class="sticky top-0 z-40 bg-paper/90 backdrop-blur-md transition-shadow data-[scrolled]:shadow-[0_1px_0_rgb(12_21_18/0.08)]"
+>
+  <div class="mx-auto flex h-[72px] max-w-[1320px] items-center gap-6 px-5 md:px-10">
+    <a href="/" class="shrink-0" aria-label="Edunnova, inicio">
+      <Image src={logo} alt="" height={80} loading="eager" class="h-9 w-auto" />
+    </a>
+
+    <nav class="ml-auto hidden items-center gap-1 xl:flex" aria-label="Principal">
+      {
+        nav.slice(0, -1).map((item) => (
+          <a
+            href={item.href}
+            aria-current={current(item.href) ? 'page' : undefined}
+            class="rounded-full px-3.5 py-2 text-[15px] font-bold text-ink/70 transition-colors hover:bg-mist hover:text-ink aria-[current=page]:bg-mist aria-[current=page]:text-forest"
+          >
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <a
+      href="/contacto/"
+      class="ml-auto hidden rounded-full bg-grape px-5 py-2.5 text-[15px] font-bold text-white transition-colors hover:bg-grape-deep sm:inline-block xl:ml-2"
+    >
+      Contáctanos
+    </a>
+    <button
+      type="button"
+      data-menu-open
+      class="-mr-2 ml-auto grid size-11 place-items-center rounded-full hover:bg-mist sm:ml-0 xl:hidden"
+      aria-expanded="false"
+      aria-controls="menu"
+      aria-label="Abrir menú"
+    >
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true"
+        ><path d="M3 7h16M3 15h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path></svg
+      >
+    </button>
+  </div>
+</header>
+
+<!-- Menú móvil a pantalla completa -->
+<div
+  id="menu"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Menú"
+  class="invisible fixed inset-0 z-50 flex h-dvh flex-col bg-forest-deep text-white opacity-0 transition-[opacity,visibility] duration-300 data-[open]:visible data-[open]:opacity-100 xl:hidden"
+>
+  <div class="flex h-[72px] shrink-0 items-center justify-between px-5">
+    <Image src={logoLight} alt="Edunnova" height={80} loading="eager" class="h-9 w-auto" />
+    <button
+      type="button"
+      data-menu-close
+      class="-mr-2 grid size-11 place-items-center rounded-full hover:bg-white/10"
+      aria-label="Cerrar menú"
+    >
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"
+        ><path d="M4 4l12 12M16 4 4 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path></svg
+      >
+    </button>
+  </div>
+  <nav class="flex flex-1 flex-col justify-center gap-1 px-5" aria-label="Móvil">
+    {
+      nav.map((item, i) => (
+        <a
+          href={item.href}
+          aria-current={current(item.href) ? 'page' : undefined}
+          class="menu-item text-[clamp(1.9rem,8vw,2.6rem)] leading-tight font-extrabold text-white/60 hover:text-white aria-[current=page]:text-leaf"
+          style={`--i:${i}`}
+        >
+          {item.label}
+        </a>
+      ))
+    }
+  </nav>
+  <div class="shrink-0 space-y-1 px-5 pt-4 pb-[max(2rem,env(safe-area-inset-bottom))] text-white/75">
+    <a href={site.whatsapp} target="_blank" rel="noopener" class="block font-bold text-leaf">WhatsApp</a>
+    <a href={`mailto:${site.email}`} class="block">{site.email}</a>
+  </div>
+</div>
+
+<style>
+  @media (prefers-reduced-motion: no-preference) {
+    .menu-item {
+      opacity: 0;
+      translate: 0 14px;
+      transition:
+        opacity 0.5s var(--ease-snap),
+        translate 0.5s var(--ease-snap),
+        color 0.2s;
+      transition-delay: calc(var(--i) * 45ms + 80ms), calc(var(--i) * 45ms + 80ms), 0ms;
+    }
+    #menu[data-open] .menu-item {
+      opacity: 1;
+      translate: none;
+    }
+  }
+</style>
+
+<script>
+  const header = document.getElementById('header')!;
+  const onScroll = () => header.toggleAttribute('data-scrolled', window.scrollY > 8);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  const menu = document.getElementById('menu')!;
+  const open = document.querySelector<HTMLButtonElement>('[data-menu-open]')!;
+  const close = menu.querySelector<HTMLButtonElement>('[data-menu-close]')!;
+  const set = (on: boolean) => {
+    menu.toggleAttribute('data-open', on);
+    open.setAttribute('aria-expanded', String(on));
+    document.documentElement.style.overflow = on ? 'hidden' : '';
+    (on ? close : open).focus();
+  };
+  open.addEventListener('click', () => set(true));
+  close.addEventListener('click', () => set(false));
+  menu.addEventListener('click', (e) => (e.target as HTMLElement).closest('a') && set(false));
+  document.addEventListener('keydown', (e) => e.key === 'Escape' && menu.hasAttribute('data-open') && set(false));
+  matchMedia('(min-width: 1280px)').addEventListener('change', (e) => e.matches && set(false));
+</script>

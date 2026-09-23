@@ -1,0 +1,86 @@
+---
+// Notas del blog en la raíz del sitio, igual que en WordPress (edunnova.com.mx/<slug>/)
+import Base from '../layouts/Base.astro';
+import PostCard from '../components/PostCard.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { formatDate, posts, readingMinutes, type Post } from '../data/posts';
+import { absolute, orgRef } from '../lib/seo';
+
+export function getStaticPaths() {
+  return posts.map((post) => ({ params: { slug: post.slug }, props: { post } }));
+}
+
+const { post } = Astro.props as { post: Post };
+const more = posts.filter((p) => p.slug !== post.slug && p.cover).slice(0, 3);
+const url = `/${post.slug}/`;
+
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'NewsArticle',
+  headline: post.title,
+  description: post.excerpt,
+  datePublished: post.date,
+  mainEntityOfPage: absolute(url),
+  ...(post.cover && { image: absolute(post.cover.src) }),
+  author: orgRef,
+  publisher: orgRef,
+  inLanguage: 'es-MX',
+};
+---
+
+<Base
+  title={`${post.title} | Edunnova`}
+  description={post.excerpt.slice(0, 158)}
+  image={post.cover?.src}
+  type="article"
+  crumbs={[
+    { name: 'Noticias', path: '/red-edunnova/' },
+    { name: post.title, path: url },
+  ]}
+  jsonLd={[articleLd]}
+>
+  <article class="px-5 pt-12 pb-8 md:px-10 md:pt-16">
+    <header class="mx-auto max-w-[760px]">
+      <a href="/red-edunnova/" class="font-bold text-forest underline-offset-4 hover:underline">← Noticias</a>
+      <p class="mt-8 text-sm font-bold text-muted">
+        <time datetime={post.date}>{formatDate(post.date)}</time><span class="mx-2 inline-block size-1 rounded-full bg-current align-middle opacity-60" aria-hidden="true"></span>{readingMinutes(post)} min de lectura
+      </p>
+      <h1 class="mt-3 text-title text-pretty">{post.title}</h1>
+    </header>
+
+    {
+      post.cover && (
+        <figure class="mx-auto mt-10 max-w-[1100px] overflow-hidden rounded-[28px]">
+          <img src={post.cover.src} width={post.cover.width} height={post.cover.height} alt="" class="max-h-[640px] w-full object-cover" />
+        </figure>
+      )
+    }
+
+    <!-- El contenido ya trae la portada como primera foto; se oculta para no repetirla -->
+    <div class:list={['prose-note mx-auto mt-10 max-w-[760px] text-lg', post.cover && 'skip-first']} set:html={post.html} />
+  </article>
+
+  {
+    more.length > 0 && (
+      <section class="px-5 pt-16 md:px-10">
+        <div class="mx-auto max-w-[1320px]">
+          <h2 class="text-title">Más noticias</h2>
+          <div class="mt-10 grid gap-5 md:grid-cols-3">
+            {more.map((p) => (
+              <PostCard post={p} />
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <CtaBand />
+</Base>
+
+<style is:global>
+  .skip-first > figure:first-child,
+  .skip-first > .gallery:first-child > figure:first-child {
+    display: none;
+  }
+</style>

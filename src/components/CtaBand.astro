@@ -1,0 +1,44 @@
+---
+import Arcs from './Arcs.astro';
+import Mark from './Mark.astro';
+import SocialIcon from './SocialIcon.astro';
+import { site } from '../data/site';
+
+interface Props {
+  title?: string;
+  mark?: string;
+  text?: string;
+  /** Cierre de la pregunta después de la palabra resaltada */
+  end?: string;
+}
+const {
+  title = '¿Listo para certificar y',
+  mark = 'fortalecer',
+  text = 'Cuéntanos qué necesita tu organización y diseñamos la ruta de capacitación, certificación o consultoría a tu medida.',
+  end = ' a tu equipo?',
+} = Astro.props;
+---
+
+<section class="px-5 py-16 md:px-10 md:py-24">
+  <div class="relative isolate mx-auto max-w-[1320px] overflow-hidden rounded-[32px] bg-forest px-7 py-14 text-white md:px-14 md:py-20">
+    <Arcs class="absolute -right-28 -bottom-28 -z-10 h-[460px] w-auto" color="#4dd47e" animate={false} />
+    <div class="max-w-2xl" data-reveal>
+      <h2 class="text-title">{title} <Mark>{mark}</Mark>{end}</h2>
+      <p class="mt-6 text-lead text-white/80">{text}</p>
+      <div class="mt-10 flex flex-wrap gap-3">
+        <a
+          href={site.whatsapp}
+          target="_blank"
+          rel="noopener"
+          class="inline-flex items-center gap-2 rounded-full bg-leaf px-6 py-3.5 font-bold text-ink transition-transform hover:-translate-y-0.5"
+        >
+          <SocialIcon name="whatsapp" size={18} />
+          Escríbenos por WhatsApp
+        </a>
+        <a href="/contacto/" class="inline-flex items-center rounded-full bg-white/10 px-6 py-3.5 font-bold transition-colors hover:bg-white/20">
+          Enviar un mensaje
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

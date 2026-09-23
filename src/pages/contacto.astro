@@ -1,0 +1,124 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import Mark from '../components/Mark.astro';
+import Arcs from '../components/Arcs.astro';
+import SocialIcon from '../components/SocialIcon.astro';
+import { site, tel } from '../data/site';
+import persona from '../assets/illustrations/persona-computadora.webp';
+
+const field =
+  'w-full rounded-2xl border-2 border-transparent bg-mist px-5 py-4 text-[17px] outline-none transition-colors placeholder:text-muted/80 focus:border-leaf focus:bg-white';
+---
+
+<Base
+  title="Contacto | Edunnova"
+  description={`Contáctanos por WhatsApp, al ${site.phone} o a ${site.email}. ${site.address.street}, ${site.address.city}, ${site.address.region}.`}
+  crumbs={[{ name: 'Contacto', path: '/contacto/' }]}
+>
+  <section class="relative isolate overflow-hidden bg-leaf px-5 pt-14 pb-24 md:px-10 lg:pt-20">
+    <Arcs class="absolute -right-32 -bottom-24 -z-10 h-[520px] w-auto" />
+    <div class="mx-auto grid max-w-[1320px] gap-12 lg:grid-cols-12">
+      <div class="lg:col-span-5">
+        <h1 class="page-in text-display"><Mark>Contáctanos</Mark></h1>
+        <p class="page-in mt-6 max-w-md text-lead text-ink/80" style="--d:100ms">
+          Cuéntanos qué necesita tu organización o qué certificación te interesa. Te respondemos a la brevedad.
+        </p>
+
+        <div class="page-in mt-10 space-y-3" style="--d:180ms">
+          <a
+            href={site.whatsapp}
+            target="_blank"
+            rel="noopener"
+            class="flex items-center gap-4 rounded-[20px] bg-ink p-5 text-white transition-transform hover:-translate-y-0.5"
+          >
+            <span class="grid size-12 shrink-0 place-items-center rounded-full bg-leaf text-ink"><SocialIcon name="whatsapp" size={22} /></span>
+            <span>
+              <span class="block font-extrabold">WhatsApp</span>
+              <span class="text-white/70">La forma más rápida de contactarnos</span>
+            </span>
+          </a>
+          <div class="grid gap-3 sm:grid-cols-2">
+            <a href={tel} class="rounded-[20px] bg-white/80 p-5 hover:bg-white">
+              <span class="block text-sm font-bold text-forest">Teléfono</span>
+              <span class="mt-1 block font-extrabold">{site.phone}</span>
+            </a>
+            <a href={`mailto:${site.email}`} class="rounded-[20px] bg-white/80 p-5 hover:bg-white">
+              <span class="block text-sm font-bold text-forest">Correo</span>
+              <span class="mt-1 block font-extrabold break-all">{site.email}</span>
+            </a>
+          </div>
+          <a href={site.mapLink} target="_blank" rel="noopener" class="block rounded-[20px] bg-white/80 p-5 hover:bg-white">
+            <span class="block text-sm font-bold text-forest">Oficinas</span>
+            <span class="mt-1 block font-bold leading-snug">
+              {site.address.street}, {site.address.area}, {site.address.postalCode}, {site.address.city}, {site.address.region}
+            </span>
+          </a>
+        </div>
+      </div>
+
+      <div class="lg:col-span-6 lg:col-start-7">
+        <form id="contact" class="page-in rounded-[32px] bg-white p-7 shadow-[0_24px_60px_-30px_rgb(4_98_78/0.45)] md:p-10" style="--d:220ms" data-email={site.email}>
+          <div class="flex items-center justify-between gap-6">
+            <h2 class="text-2xl font-extrabold">Escríbenos</h2>
+            <Image src={persona} alt="" width={180} class="-my-4 h-24 w-auto" />
+          </div>
+          <div class="mt-8 grid gap-3 sm:grid-cols-2">
+            <label class="sm:col-span-2">
+              <span class="sr-only">Nombre</span>
+              <input name="nombre" required autocomplete="name" placeholder="Nombre *" class={field} />
+            </label>
+            <label>
+              <span class="sr-only">Teléfono</span>
+              <input name="telefono" type="tel" required autocomplete="tel" placeholder="Teléfono *" class={field} />
+            </label>
+            <label>
+              <span class="sr-only">Correo electrónico</span>
+              <input name="correo" type="email" required autocomplete="email" placeholder="Correo electrónico *" class={field} />
+            </label>
+            <label class="sm:col-span-2">
+              <span class="sr-only">Mensaje</span>
+              <textarea name="mensaje" rows="5" placeholder="Escríbenos algo…" class={`${field} resize-none`}></textarea>
+            </label>
+          </div>
+          <button type="submit" class="mt-6 w-full rounded-full bg-grape py-4 font-extrabold text-white transition-colors hover:bg-grape-deep">
+            Enviar
+          </button>
+          <p class="mt-3 text-center text-sm text-muted">Se abrirá tu correo con el mensaje listo para enviar a {site.email}.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-5 py-16 md:px-10">
+    <div class="mx-auto flex max-w-[1320px] flex-col items-center justify-between gap-6 rounded-[28px] bg-white p-8 md:flex-row">
+      <p class="text-xl font-extrabold">Síguenos</p>
+      <ul class="flex flex-wrap justify-center gap-3">
+        {
+          ([
+            ['facebook', site.social.facebook, 'Facebook'],
+            ['instagram', site.social.instagram, 'Instagram'],
+            ['youtube', site.social.youtube, 'YouTube'],
+          ] as const).map(([icon, href, label]) => (
+            <li>
+              <a href={href} target="_blank" rel="noopener" class="flex items-center gap-2 rounded-full bg-mist px-5 py-3 font-bold hover:bg-leaf">
+                <SocialIcon name={icon} size={18} />
+                {label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const form = document.getElementById('contact') as HTMLFormElement;
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const d = new FormData(form);
+    const body = [String(d.get('mensaje') || ''), '', String(d.get('nombre')), String(d.get('telefono')), String(d.get('correo'))].join('\n');
+    location.href = `mailto:${form.dataset.email}?subject=${encodeURIComponent(`Contacto desde el sitio: ${d.get('nombre')}`)}&body=${encodeURIComponent(body)}`;
+  });
+</script>

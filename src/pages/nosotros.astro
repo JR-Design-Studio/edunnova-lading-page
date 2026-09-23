@@ -1,0 +1,180 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Mark from '../components/Mark.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { site } from '../data/site';
+import stacked from '../assets/brand/logo-stacked.webp';
+import conocer from '../assets/brand/red-conocer-evaluador.png';
+import abrazo from '../assets/illustrations/abrazo-mundo.webp';
+import vSost from '../assets/icons/valor-sostenibilidad.png';
+import vAdap from '../assets/icons/valor-adaptabilidad.png';
+import vInno from '../assets/icons/valor-innovacion.png';
+import vIncl from '../assets/icons/valor-inclusion.png';
+import vMejo from '../assets/icons/valor-mejora-continua.png';
+import iEdu from '../assets/icons/vinculacion-instituciones-educativas.webp';
+import iGob from '../assets/icons/vinculacion-gobierno.webp';
+import iEmp from '../assets/icons/vinculacion-empresas.webp';
+
+// Los valores venían como imágenes con el texto dentro; ahora son texto real
+const values = [
+  {
+    name: 'Sostenibilidad',
+    icon: vSost,
+    text: 'Promovemos un enfoque responsable y consciente del impacto de nuestras acciones, contribuyendo al desarrollo sostenible de las comunidades y al bienestar de las generaciones futuras.',
+  },
+  {
+    name: 'Adaptabilidad',
+    icon: vAdap,
+    text: 'Respondemos con agilidad a los cambios y desafíos del entorno, ajustando nuestras estrategias y herramientas para satisfacer las necesidades únicas de nuestros clientes.',
+  },
+  {
+    name: 'Innovación',
+    icon: vInno,
+    text: 'Buscamos continuamente nuevas ideas, tecnologías y métodos para transformar la educación, ofreciendo soluciones creativas y efectivas que se adapten a un mundo en constante evolución.',
+  },
+  {
+    name: 'Inclusión',
+    icon: vIncl,
+    text: 'Fomentamos la igualdad de oportunidades y la diversidad en todos nuestros programas, garantizando que nuestras soluciones educativas sean accesibles y relevantes para todos.',
+  },
+  {
+    name: 'Mejora continua',
+    icon: vMejo,
+    text: 'Nos comprometemos a aprender y evolucionar constantemente, optimizando nuestros servicios y procesos para ofrecer siempre la más alta calidad en educación.',
+  },
+];
+
+const links = [
+  { name: 'Instituciones educativas', icon: iEdu },
+  { name: 'Organismos gubernamentales', icon: iGob },
+  { name: 'Empresas', icon: iEmp },
+];
+---
+
+<Base
+  title="Nosotros | Edunnova, agencia educativa en Cuauhtémoc, Chihuahua"
+  description="Somos una agencia de desarrollo organizacional y capacitación en Cuauhtémoc, Chihuahua, con registro STPS como Capacitador Externo y certificaciones CONOCER con validez nacional."
+  crumbs={[{ name: 'Nosotros', path: '/nosotros/' }]}
+>
+  <PageHeader
+    lead="Respondemos a los desafíos de un mundo en constante cambio, donde los avances tecnológicos, sociales y ambientales exigen educación continua para adaptarnos y crecer."
+    illustration={abrazo}
+    illustrationAlt="Ilustración de una persona abrazando el mundo"
+  >
+    ¿Quiénes <Mark>somos</Mark>?
+  </PageHeader>
+
+  <section class="px-5 py-20 md:px-10 md:py-28">
+    <div class="mx-auto grid max-w-[1320px] items-center gap-12 lg:grid-cols-12 lg:gap-20">
+      <div class="space-y-5 text-lead lg:col-span-7" data-reveal>
+        <p class="text-2xl leading-snug font-bold md:text-[1.7rem]">
+          Somos una agencia de desarrollo organizacional y capacitación con sede en Cuauhtémoc, Chihuahua, especializada
+          en la profesionalización del talento humano y el fortalecimiento de capacidades organizacionales.
+        </p>
+        <p class="text-muted">
+          Contamos con registro oficial ante la STPS como Capacitador Externo y certificaciones CONOCER con validez
+          nacional. Fundada con la convicción de que el conocimiento aplicado genera cambio real, Edunnova nace del
+          encuentro entre la investigación de vanguardia y las necesidades concretas del sector educativo y empresarial de
+          nuestra región.
+        </p>
+        <p class="text-muted">
+          Acompañamos a instituciones educativas, empresas y organismos de gobierno en procesos de transformación real: no
+          con soluciones genéricas, sino con diagnóstico, diseño a la medida y acompañamiento hasta verificar resultados.
+        </p>
+      </div>
+      <div class="lg:col-span-4 lg:col-start-9" data-reveal style="--d:120ms">
+        <Image src={stacked} alt="Logotipo de Edunnova, agencia educativa" widths={[400, 640]} sizes="(min-width: 1024px) 28vw, 70vw" class="mx-auto w-full max-w-xs" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Misión y visión -->
+  <section class="px-5 md:px-10">
+    <div class="mx-auto grid max-w-[1320px] gap-5 md:grid-cols-2">
+      <article class="rounded-[32px] bg-forest-deep p-8 text-white md:p-12" data-reveal>
+        <h2 class="text-3xl font-extrabold text-leaf">Misión</h2>
+        <p class="mt-5 text-xl leading-snug">
+          Desarrollar capacidades profesionales e institucionales mediante educación continua, certificación de
+          competencias laborales y consultoría estratégica que genere cambio real y sostenible.
+        </p>
+      </article>
+      <article class="rounded-[32px] bg-grape p-8 text-white md:p-12" data-reveal style="--d:100ms">
+        <h2 class="text-3xl font-extrabold">Visión</h2>
+        <p class="mt-5 text-xl leading-snug">
+          Consolidarnos como el aliado estratégico que organizaciones e individuos eligen para su transformación,
+          posicionando al norte de México como referente en innovación educativa y desarrollo de capacidades.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <!-- Valores -->
+  <section class="px-5 py-20 md:px-10 md:py-28">
+    <div class="mx-auto max-w-[1320px]">
+      <h2 class="text-title" data-reveal>Nuestros <Mark>valores</Mark></h2>
+      <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
+        {
+          values.map((v, i) => (
+            <div class="rounded-[28px] bg-white p-7" data-reveal style={`--d:${i * 70}ms`}>
+              <Image src={v.icon} alt="" width={128} class="size-16" />
+              <h3 class="mt-6 text-xl font-extrabold">{v.name}</h3>
+              <p class="mt-3 text-[15px] text-muted">{v.text}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Vinculación -->
+  <section class="bg-mist px-5 py-20 md:px-10 md:py-28">
+    <div class="mx-auto grid max-w-[1320px] gap-12 lg:grid-cols-12">
+      <div class="lg:col-span-5" data-reveal>
+        <h2 class="text-title">Vinculación</h2>
+        <p class="mt-6 text-lead text-muted">
+          Colaboramos con instituciones educativas, empresas y organismos públicos, privados y de la sociedad civil,
+          creando redes estratégicas que impulsan el desarrollo organizacional y regional.
+        </p>
+        <div class="mt-10 inline-flex items-center gap-4 rounded-2xl bg-white p-4 pr-6">
+          <Image src={conocer} alt="Red CONOCER, Evaluador Independiente" width={160} class="h-14 w-auto" />
+          <p class="text-sm leading-snug font-bold">Evaluador independiente<br />ante la Red CONOCER</p>
+        </div>
+      </div>
+      <ul class="grid gap-5 sm:grid-cols-3 lg:col-span-7">
+        {
+          links.map((l, i) => (
+            <li class="flex flex-col items-center rounded-[28px] bg-white p-8 text-center" data-reveal style={`--d:${i * 80}ms`}>
+              <Image src={l.icon} alt="" width={192} class="size-24" />
+              <p class="mt-5 text-lg font-extrabold">{l.name}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- Ubicación -->
+  <section class="px-5 pt-20 md:px-10 md:pt-28">
+    <div class="mx-auto grid max-w-[1320px] overflow-hidden rounded-[32px] bg-white lg:grid-cols-12">
+      <div class="p-8 md:p-12 lg:col-span-5" data-reveal>
+        <h2 class="text-title">Visítanos</h2>
+        <address class="mt-6 text-lead not-italic text-muted">
+          {site.address.street}<br />{site.address.area}, {site.address.postalCode}<br />{site.address.city}, {site.address.region}
+        </address>
+        <a href={site.mapLink} target="_blank" rel="noopener" class="mt-8 inline-block font-bold text-forest underline-offset-4 hover:underline">
+          Cómo llegar →
+        </a>
+      </div>
+      <iframe
+        src={site.mapEmbed}
+        title="Ubicación de Edunnova en Cd. Cuauhtémoc, Chihuahua"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        class="h-80 w-full lg:col-span-7 lg:h-full lg:min-h-96"></iframe>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>

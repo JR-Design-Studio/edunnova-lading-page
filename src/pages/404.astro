@@ -1,0 +1,15 @@
+---
+import Base from '../layouts/Base.astro';
+import Mark from '../components/Mark.astro';
+---
+
+<Base title="Página no encontrada | Edunnova" description="La página que buscas no existe." noindex>
+  <section class="px-5 py-32 md:px-10">
+    <div class="mx-auto max-w-[1320px]">
+      <p class="font-bold text-forest">Error 404</p>
+      <h1 class="mt-4 max-w-3xl text-display">Esta página sigue <Mark>aprendiendo</Mark></h1>
+      <p class="mt-6 text-lead text-muted">No encontramos lo que buscabas.</p>
+      <a href="/" class="mt-10 inline-flex rounded-full bg-ink px-6 py-3.5 font-bold text-white">Volver al inicio</a>
+    </div>
+  </section>
+</Base>

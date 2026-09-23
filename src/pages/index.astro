@@ -1,0 +1,156 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import Mark from '../components/Mark.astro';
+import CtaBand from '../components/CtaBand.astro';
+import PostCard from '../components/PostCard.astro';
+import { services } from '../data/services';
+import { posts } from '../data/posts';
+import conocer from '../assets/brand/red-conocer-evaluador.png';
+import personLaptop from '../assets/illustrations/persona-laptop.webp';
+import rocket from '../assets/illustrations/web-cohete.webp';
+
+const reasons = [
+  {
+    title: 'Diagnóstico antes de proponer',
+    text: 'Diagnosticamos tu realidad específica antes de proponer. Cada estrategia se diseña a la medida de tus necesidades reales, no partimos de soluciones genéricas de plantilla.',
+  },
+  {
+    title: 'Trayectorias diversas',
+    text: 'Valoramos la diversidad de trayectorias personales, laborales y escolares, con soluciones flexibles, específicas y apoyo constante.',
+  },
+  {
+    title: 'Validez oficial, no promesas',
+    text: 'Certificaciones CONOCER avaladas por SEP y UACH, capacitación con constancia DC-3 ante la STPS, todo documentado y auditable. Un solo responsable de principio a fin.',
+  },
+];
+
+const latest = posts.filter((p) => p.cover).slice(0, 3);
+---
+
+<Base
+  title="Edunnova | Educación continua: certificaciones, capacitación y consultoría"
+  description="Convertimos el aprendizaje en resultados medibles. Certificaciones con validez oficial, capacitación con registro STPS y consultoría para empresas y organizaciones en Cuauhtémoc, Chihuahua."
+>
+  <Hero />
+
+  <!-- Servicios -->
+  <section class="px-5 py-20 md:px-10 md:py-28">
+    <div class="mx-auto max-w-[1320px]">
+      <div class="flex flex-col justify-between gap-6 md:flex-row md:items-end" data-reveal>
+        <h2 class="max-w-2xl text-title">Tres formas de impulsar a tu <Mark>organización</Mark></h2>
+        <a href="/servicios/" class="font-bold text-forest underline-offset-4 hover:underline">Ver todos los servicios →</a>
+      </div>
+      <div class="mt-12 grid gap-5 md:grid-cols-3">
+        {
+          services.map((s, i) => (
+            <a
+              href={s.href}
+              class="group relative flex flex-col overflow-hidden rounded-[28px] bg-white p-7 transition-transform duration-300 hover:-translate-y-1"
+              data-reveal
+              style={`--d:${i * 90}ms`}
+            >
+              {s.badge && (
+                <span class="absolute top-6 right-6 rounded-full bg-leaf px-3 py-1 text-xs font-extrabold tracking-wide text-ink uppercase">
+                  {s.badge}
+                </span>
+              )}
+              <Image src={s.illustration} alt="" widths={[320, 480]} sizes="(min-width: 768px) 28vw, 80vw" class="h-44 w-auto self-start object-contain" />
+              <h3 class="mt-6 text-2xl leading-tight font-extrabold">
+                {s.title} <span class="text-grape">{s.mark}</span>
+              </h3>
+              <p class="mt-3 text-muted">{s.short}</p>
+              <span class="mt-auto pt-6 font-bold text-forest group-hover:underline">Conocer más →</span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Por qué -->
+  <section class="bg-forest-deep px-5 py-20 text-white md:px-10 md:py-28">
+    <div class="mx-auto grid max-w-[1320px] gap-14 lg:grid-cols-12">
+      <div class="lg:col-span-4" data-reveal>
+        <h2 class="text-title">¿Por qué elegir <span class="text-leaf">Edunnova</span>?</h2>
+        <div class="mt-10 inline-flex items-center gap-4 rounded-2xl bg-white p-4 pr-6">
+          <Image src={conocer} alt="Red CONOCER de prestadores de servicios, Evaluador Independiente" width={160} class="h-16 w-auto" />
+          <p class="text-sm leading-snug font-bold text-ink">Evaluador independiente<br />ante la Red CONOCER</p>
+        </div>
+      </div>
+      <ol class="grid gap-5 lg:col-span-8">
+        {
+          reasons.map((r, i) => (
+            <li class="grid gap-4 rounded-[24px] bg-white/5 p-7 sm:grid-cols-[auto_1fr] sm:gap-7" data-reveal style={`--d:${i * 90}ms`}>
+              <span class="grid size-12 place-items-center rounded-full bg-leaf text-xl font-extrabold text-ink">{i + 1}</span>
+              <div>
+                <h3 class="text-xl font-extrabold">{r.title}</h3>
+                <p class="mt-2 text-white/75">{r.text}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- Contexto -->
+  <section class="px-5 py-20 md:px-10 md:py-28">
+    <div class="mx-auto grid max-w-[1320px] items-center gap-12 lg:grid-cols-2 lg:gap-20">
+      <div data-reveal>
+        <p class="font-bold text-forest">Contexto</p>
+        <h2 class="mt-3 text-title">Un mundo en <Mark>constante cambio</Mark></h2>
+        <p class="mt-6 text-lead text-muted">
+          La inteligencia artificial, la automatización y los cambios acelerados en el mundo laboral están transformando
+          las reglas del juego. Las organizaciones y profesionales que no desarrollan nuevas capacidades quedan rezagados.
+        </p>
+        <p class="mt-5 text-lead">
+          En este escenario, la educación continua no es opcional: es estratégica para crecer, competir y permanecer
+          relevantes. Ahí es exactamente donde Edunnova acompaña a instituciones, empresas y gobiernos.
+        </p>
+      </div>
+      <div data-reveal style="--d:120ms">
+        <Image src={personLaptop} alt="Ilustración de una persona trabajando en su computadora" widths={[480, 800]} sizes="(min-width: 1024px) 45vw, 90vw" class="w-full" />
+      </div>
+    </div>
+  </section>
+
+  <section class="px-5 pb-20 md:px-10 md:pb-28">
+    <div class="mx-auto grid max-w-[1320px] items-center gap-12 rounded-[32px] bg-mist p-8 md:p-14 lg:grid-cols-2 lg:gap-20">
+      <div class="order-2 lg:order-1" data-reveal>
+        <Image src={rocket} alt="Ilustración de una página web con un cohete despegando" widths={[480, 800]} sizes="(min-width: 1024px) 40vw, 90vw" class="w-full" />
+      </div>
+      <div class="order-1 lg:order-2" data-reveal style="--d:120ms">
+        <h2 class="text-title">Transformamos organizaciones con <span class="text-forest">resultados verificables</span></h2>
+        <p class="mt-6 text-lead text-muted">
+          No ofrecemos soluciones genéricas: diagnosticamos tu realidad específica, diseñamos estrategias a tu medida y te
+          acompañamos hasta verificar resultados. Trabajamos con instituciones educativas, empresas y gobiernos de la
+          región, combinando rigor metodológico con comprensión profunda del contexto local.
+        </p>
+        <a href="/nosotros/" class="mt-8 inline-block font-bold text-forest underline-offset-4 hover:underline">Conoce Edunnova →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Noticias -->
+  <section class="px-5 pb-8 md:px-10">
+    <div class="mx-auto max-w-[1320px]">
+      <div class="flex flex-col justify-between gap-6 md:flex-row md:items-end" data-reveal>
+        <h2 class="text-title">Lo más reciente</h2>
+        <a href="/red-edunnova/" class="font-bold text-forest underline-offset-4 hover:underline">Todas las noticias →</a>
+      </div>
+      <div class="mt-10 grid gap-5 md:grid-cols-3">
+        {
+          latest.map((p, i) => (
+            <div data-reveal style={`--d:${i * 90}ms`}>
+              <PostCard post={p} />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>

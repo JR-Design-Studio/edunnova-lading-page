@@ -1,0 +1,79 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Mark from '../components/Mark.astro';
+import PostCard from '../components/PostCard.astro';
+import { formatDate, posts, readingMinutes } from '../data/posts';
+
+const [featured, ...rest] = posts.filter((p) => p.cover);
+const noCover = posts.filter((p) => !p.cover);
+---
+
+<Base
+  title="Noticias y artículos | Red Edunnova"
+  description="Convenios, capacitaciones, certificaciones y artículos de Edunnova sobre educación continua, educomunicación y desarrollo de capacidades."
+  crumbs={[{ name: 'Noticias', path: '/red-edunnova/' }]}
+>
+  <PageHeader
+    lead="Convenios, capacitaciones, certificaciones y reflexiones sobre educación continua."
+  >
+    Noticias y <Mark>artículos</Mark>
+  </PageHeader>
+
+  <section class="px-5 py-20 md:px-10 md:py-28">
+    <div class="mx-auto max-w-[1320px]">
+      {
+        featured && (
+          <a href={`/${featured.slug}/`} class="group grid overflow-hidden rounded-[32px] bg-white lg:grid-cols-2" data-reveal>
+            <div class="aspect-[4/3] overflow-hidden lg:aspect-auto">
+              <img
+                src={featured.cover!.src}
+                width={featured.cover!.width}
+                height={featured.cover!.height}
+                alt=""
+                class="size-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+              />
+            </div>
+            <div class="flex flex-col justify-center p-8 md:p-12">
+              <p class="text-sm font-bold text-forest">
+                <time datetime={featured.date}>{formatDate(featured.date)}</time><span class="mx-2 inline-block size-1 rounded-full bg-current align-middle opacity-60" aria-hidden="true"></span>{readingMinutes(featured)} min de lectura
+              </p>
+              <h2 class="mt-3 text-3xl leading-tight font-extrabold text-pretty group-hover:text-grape md:text-4xl">{featured.title}</h2>
+              <p class="mt-4 text-lead text-muted">{featured.excerpt}</p>
+              <span class="mt-8 font-bold text-forest">Leer nota →</span>
+            </div>
+          </a>
+        )
+      }
+
+      <div class="mt-5 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        {
+          rest.map((p, i) => (
+            <div data-reveal style={`--d:${(i % 3) * 80}ms`}>
+              <PostCard post={p} />
+            </div>
+          ))
+        }
+      </div>
+
+      {
+        noCover.length > 0 && (
+          <div class="mt-16">
+            <h2 class="text-2xl font-extrabold" data-reveal>Artículos</h2>
+            <ul class="mt-6 grid gap-4 md:grid-cols-2">
+              {noCover.map((p) => (
+                <li data-reveal>
+                  <a href={`/${p.slug}/`} class="block rounded-[24px] bg-white p-7 hover:bg-mist">
+                    <time datetime={p.date} class="text-sm font-bold text-forest">{formatDate(p.date)}</time>
+                    <h3 class="mt-2 text-xl leading-snug font-extrabold">{p.title}</h3>
+                    <p class="mt-2 line-clamp-2 text-muted">{p.excerpt}</p>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )
+      }
+    </div>
+  </section>
+</Base>

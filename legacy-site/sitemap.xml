@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Este sitemap fue generado dinámicamente el septiembre 23, 2026 a las 7:25 am por All in One SEO v5.0.1.1, el plugin SEO original para WordPress. -->
+
+<?xml-stylesheet type="text/xsl" href="https://edunnova.com.mx/default-sitemap.xsl?sitemap=root"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+	<sitemap>
+		<loc><![CDATA[https://edunnova.com.mx/post-sitemap.xml]]></loc>
+		<lastmod><![CDATA[2026-07-15T23:52:33+00:00]]></lastmod>
+	</sitemap>
+	<sitemap>
+		<loc><![CDATA[https://edunnova.com.mx/page-sitemap.xml]]></loc>
+		<lastmod><![CDATA[2026-08-08T23:24:23+00:00]]></lastmod>
+	</sitemap>
+	<sitemap>
+		<loc><![CDATA[https://edunnova.com.mx/category-sitemap.xml]]></loc>
+		<lastmod><![CDATA[2026-02-19T20:18:15+00:00]]></lastmod>
+	</sitemap>
+</sitemapindex>

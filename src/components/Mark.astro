@@ -1,0 +1,9 @@
+---
+// Resaltado morado del banner original ("aprendiendo"): caja sólida detrás de la palabra
+interface Props {
+  class?: string;
+}
+const { class: cls } = Astro.props;
+---
+
+<span class:list={['bg-grape px-[0.16em] whitespace-nowrap text-white', cls]}><slot /></span>

@@ -1,0 +1,166 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Mark from '../components/Mark.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { services } from '../data/services';
+import { site } from '../data/site';
+import manos from '../assets/illustrations/manos-choque.webp';
+
+const method = [
+  'Diagnóstico y consultoría estratégica a la medida.',
+  'Diseño, impartición y evaluación de cursos, talleres, seminarios y más.',
+  'Seguimiento y verificación de resultados con evidencia documentada.',
+  'Elaboración de manuales y guías personalizados, adaptados a la normatividad y al contexto de cada organización.',
+];
+
+const sectors = [
+  {
+    title: 'Sector empresarial y organizacional',
+    items: [
+      'Capacitación empresarial con reconocimiento de la STPS (DC-3).',
+      'Certificación de competencias laborales ante el CONOCER.',
+      'Consultoría en gestión del cambio y desarrollo de capacidades directivas.',
+      'Desarrollo de equipos de trabajo.',
+    ],
+  },
+  {
+    title: 'Gubernamental',
+    items: [
+      'Atención ciudadana y mejora del servicio público.',
+      'Asesoría en planeación estratégica.',
+      'Transparencia y rendición de cuentas.',
+      'Desarrollo de políticas públicas.',
+    ],
+  },
+  {
+    title: 'Sector educativo',
+    items: [
+      'Actualización docente.',
+      'Rediseño curricular.',
+      'Gestión educativa.',
+      'Alfabetización mediática e informacional para estudiantes.',
+    ],
+  },
+  {
+    title: 'Colegios de profesionistas',
+    items: [
+      'Cursos, seminarios, congresos, conferencias y talleres sobre tendencias en salud, educación, derecho y arquitectura.',
+    ],
+  },
+];
+
+const serviceLd = services.map((s) => ({
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: `${s.title} ${s.mark}`,
+  description: s.long,
+  provider: { '@id': 'https://edunnova.com.mx/#organizacion' },
+  areaServed: { '@type': 'State', name: 'Chihuahua' },
+}));
+---
+
+<Base
+  title="Servicios | Certificación CONOCER, capacitación STPS y consultoría | Edunnova"
+  description="Certificación de competencias CONOCER, capacitación empresarial con constancia DC-3 ante la STPS y consultoría estratégica para empresas, instituciones educativas y gobierno."
+  crumbs={[{ name: 'Servicios', path: '/servicios/' }]}
+  jsonLd={serviceLd}
+>
+  <PageHeader
+    lead="Respondemos a las demandas de un mundo en constante cambio con soluciones educativas y organizacionales innovadoras y prácticas, para empresas, instituciones educativas, organismos de gobierno y de la sociedad civil."
+    illustration={manos}
+    illustrationAlt="Ilustración de dos manos chocando"
+  >
+    Nuestros <Mark>servicios</Mark>
+  </PageHeader>
+
+  <!-- Servicios, cada uno con foto real -->
+  <section class="px-5 py-20 md:px-10 md:py-28">
+    <div class="mx-auto grid max-w-[1320px] gap-6">
+      {
+        services.map((s, i) => (
+          <article
+            id={s.id}
+            class="grid scroll-mt-28 overflow-hidden rounded-[32px] bg-white md:grid-cols-2"
+            data-reveal
+          >
+            <div class:list={['relative min-h-72', i % 2 === 1 && 'md:order-2']}>
+              <Image src={s.photo} alt={s.photoAlt} widths={[640, 960, 1280]} sizes="(min-width: 768px) 50vw, 100vw" class="absolute inset-0 size-full object-cover" />
+              {s.badge && (
+                <span class="absolute top-5 left-5 rounded-full bg-leaf px-3 py-1 text-xs font-extrabold tracking-wide uppercase">{s.badge}</span>
+              )}
+            </div>
+            <div class="flex flex-col justify-center p-8 md:p-12">
+              <Image src={s.illustration} alt="" width={240} class="h-24 w-auto self-start" />
+              <h2 class="mt-6 text-3xl leading-tight font-extrabold md:text-4xl">
+                {s.title} <span class="text-grape">{s.mark}</span>
+              </h2>
+              <p class="mt-4 text-lead text-muted">{s.long}</p>
+              {s.id === 'certificacion' ? (
+                <a href={s.href} class="mt-8 inline-flex w-fit rounded-full bg-ink px-6 py-3 font-bold text-white hover:bg-forest">
+                  Ver estándares de certificación
+                </a>
+              ) : (
+                <a href={site.whatsapp} target="_blank" rel="noopener" class="mt-8 inline-flex w-fit rounded-full bg-ink px-6 py-3 font-bold text-white hover:bg-forest">
+                  Solicitar información
+                </a>
+              )}
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- Cómo trabajamos -->
+  <section class="bg-forest-deep px-5 py-20 text-white md:px-10 md:py-28">
+    <div class="mx-auto max-w-[1320px]">
+      <div class="grid gap-8 lg:grid-cols-12" data-reveal>
+        <h2 class="text-title lg:col-span-5">¿Cómo <span class="text-leaf">trabajamos</span>?</h2>
+        <p class="text-lead text-white/75 lg:col-span-6 lg:col-start-7">
+          Todo nuestro trabajo se sustenta en la certificación oficial CONOCER y en el registro
+          <strong class="text-white">{site.stpsRegistry}</strong> como Capacitador Externo ante la STPS.
+        </p>
+      </div>
+      <ol class="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          method.map((m, i) => (
+            <li class="rounded-[24px] bg-white/5 p-7" data-reveal style={`--d:${i * 80}ms`}>
+              <span class="text-5xl font-extrabold text-leaf">{String(i + 1).padStart(2, '0')}</span>
+              <p class="mt-6 text-lg leading-snug">{m}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- A quién -->
+  <section class="px-5 pt-20 md:px-10 md:pt-28">
+    <div class="mx-auto max-w-[1320px]">
+      <h2 class="text-title" data-reveal>Dirigidos a</h2>
+      <div class="mt-10 grid gap-5 md:grid-cols-2">
+        {
+          sectors.map((s, i) => (
+            <div class="rounded-[28px] bg-white p-8" data-reveal style={`--d:${(i % 2) * 90}ms`}>
+              <h3 class="text-2xl font-extrabold">{s.title}</h3>
+              <ul class="mt-5 space-y-3">
+                {s.items.map((it) => (
+                  <li class="flex gap-3">
+                    <svg class="mt-1 shrink-0 text-forest" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                      <path d="m3 8.3 3.2 3.2L13 4.7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    <span class="text-muted">{it}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>

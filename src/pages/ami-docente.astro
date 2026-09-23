@@ -1,0 +1,183 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Mark from '../components/Mark.astro';
+import CtaBand from '../components/CtaBand.astro';
+import SocialIcon from '../components/SocialIcon.astro';
+import { site } from '../data/site';
+import { orgRef } from '../lib/seo';
+import certIll from '../assets/illustrations/concepto-certificacion.png';
+import incluye from '../assets/illustrations/concepto-incluye.png';
+import laptop from '../assets/illustrations/persona-laptop.webp';
+import proceso from '../assets/illustrations/concepto-proceso.png';
+import recursos from '../assets/illustrations/concepto-recursos.png';
+import conocer from '../assets/brand/red-conocer-evaluador.png';
+
+const includes = [
+  { title: 'Modalidad flexible', text: 'Presencial o virtual en vivo, o acceso a la grabación para avanzar a tu ritmo.', image: laptop },
+  {
+    title: 'Proceso de capacitación',
+    text: 'Ejercicios guiados paso a paso, casos de estudio y ejemplos prácticos adaptados a tu contexto.',
+    image: proceso,
+  },
+  { title: 'Recursos complementarios', text: 'Material descargable e interactivo, y atención personalizada para resolver dudas.', image: recursos },
+  { title: 'Certificación', text: 'Certificado de competencia laboral oficial avalado por la SEP, el CONOCER y la UACH.', image: incluye },
+];
+
+const standards = [
+  {
+    name: 'Formación para instructores',
+    codes: 'EC0301 y EC0217.01',
+    purpose:
+      'Certifica oficialmente la capacidad de diseñar e impartir cursos de capacitación con estructura profesional, desde la carta descriptiva hasta la evaluación del aprendizaje.',
+    audience:
+      'Personal de RH, supervisores, instructores internos o coordinadores de capacitación que diseñan e imparten cursos dentro de su organización.',
+    benefits:
+      'Profesionaliza tu propia área de capacitación interna, reduce la dependencia de proveedores externos y queda respaldado con validez oficial nacional.',
+  },
+  {
+    name: 'Marketing digital',
+    codes: 'EC1621',
+    purpose:
+      'Certifica oficialmente la capacidad de diseñar e implementar estrategias de mercadotecnia en medios digitales, con seguimiento de métricas de desempeño.',
+    audience: 'Personal de marketing, comunicación o community managers responsables de la presencia digital de la empresa.',
+    benefits: 'Un diferenciador real frente a competidores que solo tienen "experiencia" sin un documento que la respalde.',
+  },
+  {
+    name: 'Liderazgo en atención en el servicio público',
+    codes: 'EC0401 y EC0105',
+    purpose:
+      'Certifica oficialmente las competencias de liderazgo en el servicio público y de atención al ciudadano, con impacto directo en la calidad del servicio y la percepción ciudadana.',
+    audience:
+      'Servidores públicos con funciones de mando o coordinación, y personal de atención directa al ciudadano (ventanillas, trámites, recepción) en municipios y dependencias estatales o federales.',
+    benefits:
+      'Evidencia documentada y verificable ante auditorías, evaluaciones institucionales o procesos de transparencia, que fortalece la posición del servidor público y de la institución.',
+  },
+];
+
+const courseLd = standards.map((s) => ({
+  '@context': 'https://schema.org',
+  '@type': 'Course',
+  name: `${s.name} (${s.codes})`,
+  description: s.purpose,
+  provider: orgRef,
+  educationalCredentialAwarded: 'Certificado de competencia laboral CONOCER (SEP / CONOCER / UACH)',
+  inLanguage: 'es-MX',
+}));
+---
+
+<Base
+  title="Certificación de Estándares CONOCER | Edunnova"
+  description="Certifica tus competencias laborales con validez oficial SEP, CONOCER y UACH: formación de instructores (EC0301, EC0217.01), marketing digital (EC1621) y liderazgo en el servicio público (EC0401, EC0105)."
+  crumbs={[{ name: 'Certificación CONOCER', path: '/ami-docente/' }]}
+  jsonLd={courseLd}
+>
+  <PageHeader
+    lead="Una opción flexible y accesible para certificar oficialmente tus competencias bajo el modelo CONOCER, con validez nacional respaldada por la SEP, el CONOCER y la UACH."
+    illustration={certIll}
+  >
+    Certificación de Estándares <Mark>CONOCER</Mark>
+    <div slot="actions" class="page-in mt-9 flex flex-wrap gap-3" style="--d:200ms">
+      <a
+        href={site.whatsapp}
+        target="_blank"
+        rel="noopener"
+        class="inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3.5 font-bold text-white transition-transform hover:-translate-y-0.5"
+      >
+        <SocialIcon name="whatsapp" size={18} /> ¡Quiero inscribirme!
+      </a>
+      <a href="#estandares" class="inline-flex items-center rounded-full bg-white/90 px-6 py-3.5 font-bold hover:bg-white">
+        Ver estándares
+      </a>
+    </div>
+  </PageHeader>
+
+  <!-- Objetivo y metodología -->
+  <section class="px-5 py-20 md:px-10 md:py-28">
+    <div class="mx-auto grid max-w-[1320px] gap-12 lg:grid-cols-2 lg:gap-20">
+      <div data-reveal>
+        <h2 class="text-title">Objetivo</h2>
+        <p class="mt-6 text-lead text-muted">
+          Edunnova busca ser el enlace entre la educación formal y las necesidades reales del mercado laboral, ofreciendo
+          educación continua de calidad que permita a profesionales e instituciones certificar sus competencias con
+          validez nacional.
+        </p>
+        <div class="mt-10 inline-flex items-center gap-4 rounded-2xl bg-white p-4 pr-6">
+          <Image src={conocer} alt="Red CONOCER, Evaluador Independiente" width={160} class="h-14 w-auto" />
+          <p class="text-sm leading-snug font-bold">Evaluador independiente<br />ante la Red CONOCER</p>
+        </div>
+      </div>
+      <div data-reveal style="--d:120ms">
+        <h2 class="text-title">Metodología</h2>
+        <p class="mt-6 text-lead text-muted">
+          Cada certificación combina capacitación práctica, evaluación de competencias y emisión del certificado oficial,
+          con un modelo que se adapta a distintos perfiles, vengas de la educación formal o de la experiencia laboral
+          directa.
+        </p>
+        <p class="mt-5 text-lead">
+          Modalidad presencial o en línea según el estándar, con grupos reducidos que garantizan atención personalizada
+          desde la primera sesión hasta la obtención del certificado.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Qué incluye -->
+  <section class="bg-mist px-5 py-20 md:px-10 md:py-28">
+    <div class="mx-auto max-w-[1320px]">
+      <h2 class="text-title" data-reveal>¿Qué <Mark>incluye</Mark>?</h2>
+      <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          includes.map((it, i) => (
+            <div class="flex flex-col rounded-[28px] bg-white p-7" data-reveal style={`--d:${i * 80}ms`}>
+              <Image src={it.image} alt="" widths={[240, 400]} sizes="(min-width: 1024px) 20vw, 45vw" class="h-36 w-auto self-start object-contain" />
+              <h3 class="mt-6 text-xl font-extrabold">{it.title}</h3>
+              <p class="mt-2 text-muted">{it.text}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Estándares -->
+  <section id="estandares" class="scroll-mt-24 px-5 pt-20 md:px-10 md:pt-28">
+    <div class="mx-auto max-w-[1000px]">
+      <h2 class="text-title" data-reveal>Estándares de certificación</h2>
+      <div class="mt-10 space-y-4">
+        {
+          standards.map((s, i) => (
+            <details class="group rounded-[24px] bg-white" open={i === 0} data-reveal>
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-6 p-6 md:p-8 [&::-webkit-details-marker]:hidden">
+                <div>
+                  <span class="rounded-full bg-mist px-3 py-1 text-sm font-bold text-forest">{s.codes}</span>
+                  <h3 class="mt-3 text-2xl leading-tight font-extrabold">{s.name}</h3>
+                </div>
+                <span class="grid size-11 shrink-0 place-items-center rounded-full bg-leaf transition-transform duration-300 group-open:rotate-45" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2v12M2 8h12" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" /></svg>
+                </span>
+              </summary>
+              <dl class="grid gap-6 px-6 pb-8 md:grid-cols-3 md:px-8">
+                <div>
+                  <dt class="font-extrabold text-forest">Para qué sirve</dt>
+                  <dd class="mt-2 text-muted">{s.purpose}</dd>
+                </div>
+                <div>
+                  <dt class="font-extrabold text-forest">Dirigido a</dt>
+                  <dd class="mt-2 text-muted">{s.audience}</dd>
+                </div>
+                <div>
+                  <dt class="font-extrabold text-forest">Ventajas de cursarlo</dt>
+                  <dd class="mt-2 text-muted">{s.benefits}</dd>
+                </div>
+              </dl>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CtaBand title="¿Quieres certificar tus" mark="competencias" end="?" text="Escríbenos para conocer fechas, modalidades y requisitos de cada estándar." />
+</Base>
