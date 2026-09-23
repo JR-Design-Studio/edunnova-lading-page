@@ -14,7 +14,7 @@ const current = (href: string) => (href === '/' ? path === '/' : path.startsWith
 >
   <div class="mx-auto flex h-[72px] max-w-[1320px] items-center gap-6 px-5 md:px-10">
     <a href="/" class="shrink-0" aria-label="Edunnova, inicio">
-      <Image src={logo} alt="" height={80} loading="eager" class="h-9 w-auto" />
+      <Image src={logo} alt="" height={112} loading="eager" class="h-14 w-auto" />
     </a>
 
     <nav class="ml-auto hidden items-center gap-1 xl:flex" aria-label="Principal">
@@ -61,7 +61,7 @@ const current = (href: string) => (href === '/' ? path === '/' : path.startsWith
   class="invisible fixed inset-0 z-50 flex h-dvh flex-col bg-forest-deep text-white opacity-0 transition-[opacity,visibility] duration-300 data-[open]:visible data-[open]:opacity-100 xl:hidden"
 >
   <div class="flex h-[72px] shrink-0 items-center justify-between px-5">
-    <Image src={logoLight} alt="Edunnova" height={80} loading="eager" class="h-9 w-auto" />
+    <Image src={logoLight} alt="Edunnova" height={112} loading="eager" class="h-14 w-auto" />
     <button
       type="button"
       data-menu-close
