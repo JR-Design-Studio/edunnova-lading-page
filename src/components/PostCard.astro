@@ -8,7 +8,7 @@ interface Props {
 const { post, eager = false } = Astro.props;
 ---
 
-<a href={`/${post.slug}/`} class="group flex flex-col overflow-hidden rounded-[24px] bg-white">
+<a href={`/${post.slug}/`} class="lift group flex flex-col overflow-hidden rounded-[24px] bg-white">
   <div class="aspect-[4/3] overflow-hidden bg-mist">
     {
       post.cover ? (

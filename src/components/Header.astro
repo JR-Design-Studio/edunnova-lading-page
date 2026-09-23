@@ -1,6 +1,5 @@
 ---
 import { Image } from 'astro:assets';
-import logo from '../assets/brand/logo-horizontal-dark.webp';
 import logoLight from '../assets/brand/logo-horizontal-light.webp';
 import { nav, site } from '../data/site';
 
@@ -10,11 +9,11 @@ const current = (href: string) => (href === '/' ? path === '/' : path.startsWith
 
 <header
   id="header"
-  class="sticky top-0 z-40 bg-paper/90 backdrop-blur-md transition-shadow data-[scrolled]:shadow-[0_1px_0_rgb(12_21_18/0.08)]"
+  class="sticky top-0 z-40 bg-night text-white transition-shadow data-[scrolled]:shadow-[0_8px_24px_-12px_rgb(3_34_33/0.5)]"
 >
   <div class="mx-auto flex h-[72px] max-w-[1320px] items-center gap-6 px-5 md:px-10">
     <a href="/" class="shrink-0" aria-label="Edunnova, inicio">
-      <Image src={logo} alt="" height={112} loading="eager" class="h-14 w-auto" />
+      <Image src={logoLight} alt="" height={112} loading="eager" class="h-14 w-auto" />
     </a>
 
     <nav class="ml-auto hidden items-center gap-1 xl:flex" aria-label="Principal">
@@ -23,7 +22,7 @@ const current = (href: string) => (href === '/' ? path === '/' : path.startsWith
           <a
             href={item.href}
             aria-current={current(item.href) ? 'page' : undefined}
-            class="rounded-full px-3.5 py-2 text-[15px] font-bold text-ink/70 transition-colors hover:bg-mist hover:text-ink aria-[current=page]:bg-mist aria-[current=page]:text-forest"
+            class="rounded-full px-3.5 py-2 text-[15px] font-bold text-white/75 transition-colors hover:bg-white/10 hover:text-white aria-[current=page]:bg-white/10 aria-[current=page]:text-leaf"
           >
             {item.label}
           </a>
@@ -40,7 +39,7 @@ const current = (href: string) => (href === '/' ? path === '/' : path.startsWith
     <button
       type="button"
       data-menu-open
-      class="-mr-2 ml-auto grid size-11 place-items-center rounded-full hover:bg-mist sm:ml-0 xl:hidden"
+      class="-mr-2 ml-auto grid size-11 place-items-center rounded-full hover:bg-white/10 sm:ml-0 xl:hidden"
       aria-expanded="false"
       aria-controls="menu"
       aria-label="Abrir menú"
@@ -58,7 +57,7 @@ const current = (href: string) => (href === '/' ? path === '/' : path.startsWith
   role="dialog"
   aria-modal="true"
   aria-label="Menú"
-  class="invisible fixed inset-0 z-50 flex h-dvh flex-col bg-forest-deep text-white opacity-0 transition-[opacity,visibility] duration-300 data-[open]:visible data-[open]:opacity-100 xl:hidden"
+  class="invisible fixed inset-0 z-50 flex h-dvh flex-col bg-night text-white opacity-0 transition-[opacity,visibility] duration-300 data-[open]:visible data-[open]:opacity-100 xl:hidden"
 >
   <div class="flex h-[72px] shrink-0 items-center justify-between px-5">
     <Image src={logoLight} alt="Edunnova" height={112} loading="eager" class="h-14 w-auto" />

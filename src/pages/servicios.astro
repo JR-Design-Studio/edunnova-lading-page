@@ -82,30 +82,31 @@ const serviceLd = services.map((s) => ({
         services.map((s, i) => (
           <article
             id={s.id}
-            class="grid scroll-mt-28 overflow-hidden rounded-[32px] bg-white md:grid-cols-2"
+            class="lift group relative grid scroll-mt-28 overflow-hidden rounded-[32px] bg-white [--lift:1.015] md:grid-cols-2"
             data-reveal
           >
-            <div class:list={['relative min-h-72', i % 2 === 1 && 'md:order-2']}>
-              <Image src={s.photo} alt={s.photoAlt} widths={[640, 960, 1280]} sizes="(min-width: 768px) 50vw, 100vw" class="absolute inset-0 size-full object-cover" />
+            <div class:list={['relative min-h-72 overflow-hidden', i % 2 === 1 && 'md:order-2']}>
+              <Image src={s.photo} alt={s.photoAlt} widths={[640, 960, 1280]} sizes="(min-width: 768px) 50vw, 100vw" class="absolute inset-0 size-full object-cover transition-transform duration-700 ease-snap motion-safe:group-hover:scale-[1.05]" />
               {s.badge && (
                 <span class="absolute top-5 left-5 rounded-full bg-leaf px-3 py-1 text-xs font-extrabold tracking-wide uppercase">{s.badge}</span>
               )}
             </div>
             <div class="flex flex-col justify-center p-8 md:p-12">
-              <Image src={s.illustration} alt="" width={240} class="h-24 w-auto self-start" />
+              <Image src={s.illustration} alt="" width={240} class="h-24 w-auto self-start transition-transform duration-500 ease-snap motion-safe:group-hover:-rotate-3 motion-safe:group-hover:scale-105" />
               <h2 class="mt-6 text-3xl leading-tight font-extrabold md:text-4xl">
                 {s.title} <span class="text-grape">{s.mark}</span>
               </h2>
               <p class="mt-4 text-lead text-muted">{s.long}</p>
-              {s.id === 'certificacion' ? (
-                <a href={s.href} class="mt-8 inline-flex w-fit rounded-full bg-ink px-6 py-3 font-bold text-white hover:bg-forest">
-                  Ver estándares de certificación
-                </a>
-              ) : (
-                <a href={site.whatsapp} target="_blank" rel="noopener" class="mt-8 inline-flex w-fit rounded-full bg-ink px-6 py-3 font-bold text-white hover:bg-forest">
-                  Solicitar información
-                </a>
-              )}
+              {/* El enlace cubre toda la tarjeta con su ::after, así toda la card es clickeable */}
+              <a
+                href={s.id === 'certificacion' ? s.href : site.whatsapp}
+                target={s.id === 'certificacion' ? undefined : '_blank'}
+                rel={s.id === 'certificacion' ? undefined : 'noopener'}
+                class="mt-8 inline-flex w-fit items-center gap-2 rounded-full bg-ink px-6 py-3 font-bold text-white transition-colors group-hover:bg-forest after:absolute after:inset-0 after:content-['']"
+              >
+                {s.id === 'certificacion' ? 'Ver estándares de certificación' : 'Solicitar información'}
+                <span class="transition-transform duration-300 ease-snap motion-safe:group-hover:translate-x-1" aria-hidden="true">→</span>
+              </a>
             </div>
           </article>
         ))

@@ -26,6 +26,7 @@
   --color-mint: #00e781;
   --color-forest: #04624e;
   --color-forest-deep: #033f33;
+  --color-night: #032221;
   --color-grape: #8147f3;
   --color-grape-deep: #6a33d6;
   --color-ink: #0c1512;
@@ -42,6 +43,8 @@
   html {
     scroll-behavior: smooth;
     overflow-x: clip;
+    /* Reserva el espacio del scrollbar para que el ancho no cambie entre páginas */
+    scrollbar-gutter: stable;
   }
   body {
     @apply bg-paper font-sans text-ink antialiased;
@@ -76,6 +79,21 @@
   line-height: 1.55;
 }
 
+/* Transición nativa entre páginas: el contenido se funde en lugar de parpadear en blanco,
+   y el header queda fijo porque tiene su propio nombre de transición */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+  }
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 0.25s;
+  }
+}
+#header {
+  view-transition-name: site-header;
+}
+
 /* Aparición al hacer scroll; sin JS o con movimiento reducido todo queda visible */
 @media (prefers-reduced-motion: no-preference) {
   .js [data-reveal] {
@@ -89,6 +107,31 @@
   .js [data-reveal].is-in {
     opacity: 1;
     translate: none;
+  }
+
+  /* Tarjetas clickeables: crecen al pasar el cursor y ceden al presionar.
+     Usa `scale` (no `translate`) para no chocar con la aparición al hacer scroll. */
+  .lift,
+  .js [data-reveal].lift {
+    transition:
+      opacity 0.7s var(--ease-snap) var(--d, 0ms),
+      translate 0.7s var(--ease-snap) var(--d, 0ms),
+      scale 0.45s var(--ease-snap),
+      box-shadow 0.45s var(--ease-snap);
+  }
+  .lift:hover {
+    scale: var(--lift, 1.02);
+    box-shadow: 0 28px 50px -28px rgb(12 21 18 / 0.28);
+  }
+  .lift:active,
+  .js [data-reveal].lift:active {
+    scale: calc(var(--lift, 1.02) - 0.025);
+    transition-duration: 0.7s, 0.7s, 0.15s, 0.45s;
+  }
+
+  /* Botones de píldora: se hunden un poco al presionarlos */
+  :is(a, button).rounded-full:active {
+    scale: 0.97;
   }
 }
 
