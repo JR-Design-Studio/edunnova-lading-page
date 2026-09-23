@@ -6,14 +6,13 @@ interface Props {
   animate?: boolean;
 }
 const { class: cls, color = 'var(--color-forest)', animate = true } = Astro.props;
-// Semicírculos con centro en la esquina inferior derecha: la mitad derecha queda fuera
-// del SVG (overflow visible) para que los arcos nunca muestren un corte recto.
+// cuarto de círculo con centro en la esquina inferior derecha
 const rings = [500, 340, 180];
 const W = 76;
-const arc = (r: number) => `M ${600 - r} 600 A ${r} ${r} 0 0 1 ${600 + r} 600`;
+const arc = (r: number) => `M ${600 - r} 600 A ${r} ${r} 0 0 1 600 ${600 - r}`;
 ---
 
-<svg viewBox="0 0 600 600" overflow="visible" class:list={['arcs overflow-visible', animate && 'arcs-animate', cls]} aria-hidden="true" fill="none">
+<svg viewBox="0 0 600 600" class:list={['arcs', animate && 'arcs-animate', cls]} aria-hidden="true" fill="none">
   {
     rings.map((r, i) => (
       <path d={arc(r)} stroke={color} stroke-width={W} pathLength="1" style={`--i:${i}`} />
