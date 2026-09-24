@@ -1,15 +1,76 @@
 ---
+import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import Mark from '../components/Mark.astro';
+import Arcs from '../components/Arcs.astro';
+import SocialIcon from '../components/SocialIcon.astro';
+import { site } from '../data/site';
+import persona from '../assets/illustrations/persona-computadora.webp';
+
+// A dónde suele querer ir quien llega a una URL rota
+const shortcuts = [
+  { href: '/servicios/', title: 'Servicios', text: 'Certificación, capacitación y consultoría.' },
+  { href: '/ami-docente/', title: 'Certificación CONOCER', text: 'Estándares de competencia con validez oficial.' },
+  { href: '/red-edunnova/', title: 'Enlace', text: 'Convenios, capacitaciones y artículos.' },
+  { href: '/contacto/', title: 'Contacto', text: 'Teléfono, correo y ubicación.' },
+];
 ---
 
-<Base title="Página no encontrada | Edunnova" description="La página que buscas no existe." noindex>
-  <section class="px-5 py-32 md:px-10">
+<Base title="Página no encontrada | Edunnova" description="La página que buscas no existe o cambió de lugar." noindex>
+  <section class="relative isolate overflow-hidden bg-leaf">
+    <Arcs class="absolute -right-32 -bottom-24 -z-10 h-[520px] w-auto opacity-90 md:-right-20" />
+    <div class="mx-auto grid max-w-[1320px] items-center gap-10 px-5 pt-14 pb-16 md:px-10 lg:grid-cols-12 lg:pt-20 lg:pb-24">
+      <div class="lg:col-span-7">
+        <p class="page-in font-extrabold text-forest-deep">Error 404</p>
+        <h1 class="page-in mt-3 text-display" style="--d:60ms">Esta página sigue <Mark>aprendiendo</Mark></h1>
+        <p class="page-in mt-6 max-w-xl text-lead text-ink/80" style="--d:140ms">
+          No encontramos lo que buscabas. Puede que el enlace haya cambiado o que la dirección tenga un error.
+        </p>
+        <div class="page-in mt-10 flex flex-wrap gap-3" style="--d:200ms">
+          <a href="/" class="inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3.5 font-bold text-white transition-transform hover:-translate-y-0.5">
+            Volver al inicio
+          </a>
+          <a
+            href={site.whatsapp}
+            target="_blank"
+            rel="noopener"
+            class="inline-flex items-center gap-2 rounded-full bg-white/90 px-6 py-3.5 font-bold text-ink transition-colors hover:bg-white"
+          >
+            <SocialIcon name="whatsapp" size={18} /> Pregúntanos por WhatsApp
+          </a>
+        </div>
+      </div>
+      <div class="page-in lg:col-span-4 lg:col-start-9" style="--d:260ms">
+        <Image
+          src={persona}
+          alt=""
+          widths={[400, 640]}
+          sizes="(min-width: 1024px) 30vw, 70vw"
+          loading="eager"
+          class="mx-auto w-full max-w-xs lg:max-w-none"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="px-5 py-20 md:px-10 md:py-24">
     <div class="mx-auto max-w-[1320px]">
-      <p class="font-bold text-forest">Error 404</p>
-      <h1 class="mt-4 max-w-3xl text-display">Esta página sigue <Mark>aprendiendo</Mark></h1>
-      <p class="mt-6 text-lead text-muted">No encontramos lo que buscabas.</p>
-      <a href="/" class="mt-10 inline-flex rounded-full bg-ink px-6 py-3.5 font-bold text-white">Volver al inicio</a>
+      <h2 class="text-2xl font-extrabold md:text-3xl" data-reveal>Quizá buscabas</h2>
+      <ul class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          shortcuts.map((s, i) => (
+            <li data-reveal style={`--d:${i * 70}ms`}>
+              <a href={s.href} class="lift group flex h-full flex-col rounded-[24px] bg-white p-7">
+                <span class="text-xl font-extrabold group-hover:text-grape">{s.title}</span>
+                <span class="mt-2 text-[15px] text-muted">{s.text}</span>
+                <span class="mt-auto pt-6 font-bold text-forest" aria-hidden="true">
+                  <span class="inline-block transition-transform duration-300 ease-snap motion-safe:group-hover:translate-x-1">→</span>
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
     </div>
   </section>
 </Base>

@@ -1,0 +1,13 @@
+{
+  "name": "Edunnova, agencia educativa",
+  "short_name": "Edunnova",
+  "lang": "es-MX",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#f6f8f3",
+  "theme_color": "#032221",
+  "icons": [
+    { "src": "/favicon.png", "sizes": "64x64", "type": "image/png" },
+    { "src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}

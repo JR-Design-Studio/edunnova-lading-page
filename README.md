@@ -14,14 +14,18 @@ Las URLs son las mismas que en WordPress (con `/` al final), así que los enlace
 
 | URL | Contenido |
 | --- | --- |
-| `/` | Portada (componente `Hero`), servicios, por qué Edunnova, contexto, noticias |
+| `/` | Portada (componente `Hero`), servicios, por qué Edunnova, contexto, lo más reciente de Enlace |
 | `/servicios/` | Los tres servicios con fotos reales, metodología y sectores |
 | `/ami-docente/` | Certificación de Estándares CONOCER: qué incluye y los estándares (EC0301, EC0217.01, EC1621, EC0401, EC0105) |
 | `/nosotros/` | Quiénes somos, misión, visión, valores, vinculación y ubicación |
 | `/resp-social/` | Programas de responsabilidad social |
-| `/red-edunnova/` | Noticias y artículos |
+| `/red-edunnova/` | Enlace: noticias y artículos |
 | `/<slug>/` | Cada nota del blog (7) |
 | `/contacto/` | WhatsApp, teléfono, correo, formulario y redes |
+| `/rss.xml` | Feed RSS de Enlace |
+| `404.html` | Página no encontrada con accesos a las secciones principales |
+
+Direcciones viejas de WordPress (`/home/`, `/feed/`, `/comments/feed/` y `/<nota>/feed/`) redirigen a su equivalente; se definen en `astro.config.mjs`. En un hosting estático son redirecciones con `<meta refresh>`; si el hosting permite reglas de redirección 301, conviene replicarlas ahí.
 
 ## Marca
 
